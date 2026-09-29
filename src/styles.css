@@ -460,6 +460,18 @@ select {
   outline-offset: 2px;
 }
 
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.form-alert {
+  margin: 0;
+  color: var(--error);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
 .success {
   border: 1px solid #b7ebc4;
   background: #f3fbf5;
