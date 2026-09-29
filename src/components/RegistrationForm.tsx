@@ -27,6 +27,7 @@ const initialValues: FormValues = {
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const registrationInbox = "svelservices@gmail.com";
 
 function IndiaFlag() {
   return (
@@ -59,10 +60,41 @@ function describedBy(id: string, error?: string) {
   return error ? `${id}-error` : undefined;
 }
 
+async function sendRegistration(values: FormValues) {
+  const response = await fetch(`https://formsubmit.co/ajax/${registrationInbox}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      _subject: `Innovation Connect 2026 registration — ${values.firstName.trim()} ${values.lastName.trim()}`,
+      _template: "table",
+      _captcha: "false",
+      _replyto: values.email.trim(),
+      "First Name": values.firstName.trim(),
+      "Last Name": values.lastName.trim(),
+      "Company Name": values.company.trim(),
+      Phone: `${values.countryCode} ${values.phone.trim()}`,
+      Email: values.email.trim(),
+      Location: values.location,
+      "Job Title": values.jobTitle.trim(),
+    }),
+  });
+
+  const payload = (await response.json().catch(() => null)) as { success?: string | boolean; message?: string } | null;
+  const accepted = response.ok && (payload?.success === true || payload?.success === "true");
+  if (!accepted) {
+    throw new Error(payload?.message || "The registration could not be sent.");
+  }
+}
+
 export function RegistrationForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
 
   function update<K extends keyof FormValues>(key: K, value: FormValues[K]) {
     setValues((current) => ({ ...current, [key]: value }));
@@ -74,17 +106,34 @@ export function RegistrationForm() {
     });
   }
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const nextErrors = validate(values);
     setErrors(nextErrors);
+    setSendError("");
     if (Object.keys(nextErrors).length > 0) {
       const firstInvalid = Object.keys(nextErrors)[0];
       const field = document.getElementById(firstInvalid === "countryCode" ? "phone" : firstInvalid);
       field?.focus();
       return;
     }
-    setSubmitted(true);
+
+    setSending(true);
+    try {
+      await sendRegistration(values);
+      setSubmitted(true);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "";
+      if (message.toLowerCase().includes("activation")) {
+        setSendError(
+          "Registration email is not active yet. Open svelservices@gmail.com, click the Activate Form link, then submit again.",
+        );
+      } else {
+        setSendError("Your registration could not be sent. Please try again.");
+      }
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -128,6 +177,7 @@ export function RegistrationForm() {
               setSubmitted(false);
               setValues(initialValues);
               setErrors({});
+              setSendError("");
             }}
           >
             Register another attendee
@@ -254,8 +304,14 @@ export function RegistrationForm() {
             />
           </FormField>
 
-          <button type="submit" className="submit-btn">
-            Submit
+          {sendError ? (
+            <p className="form-alert" role="alert">
+              {sendError}
+            </p>
+          ) : null}
+
+          <button type="submit" className="submit-btn" disabled={sending}>
+            {sending ? "Sending..." : "Submit"}
           </button>
         </form>
       )}

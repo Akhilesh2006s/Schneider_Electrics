@@ -19,10 +19,6 @@ export function EventDescription() {
         <li>📍 Venue: Grand by GRT, Vijayawada</li>
       </ul>
       <p>Be among the first to experience what's next.</p>
-      <p className="contact-email">
-        Email:{" "}
-        <a href="mailto:svelservices@gmail.com">svelservices@gmail.com</a>
-      </p>
     </section>
   );
 }
