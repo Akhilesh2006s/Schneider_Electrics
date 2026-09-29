@@ -1,0 +1,564 @@
+:root {
+  --green: #01d157;
+  --se-green: #3dcd58;
+  --se-green-hover: #2fbe4a;
+  --se-green-active: #28a841;
+  --cyan: #5cf3ff;
+  --ink: #2c2c2c;
+  --muted: #4a4a4a;
+  --line: #d5d5d5;
+  --error: #c0392b;
+  --header-h: 76px;
+  font-family: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+body {
+  min-width: 320px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+.site-header {
+  height: var(--header-h);
+  background: #fff;
+  border-bottom: 1px solid #ececec;
+  display: flex;
+  align-items: center;
+}
+
+.header-inner,
+.content {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.svel-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--cyan);
+}
+
+.svel-mark {
+  width: 42px;
+  height: 42px;
+  flex: none;
+}
+
+.svel-word {
+  font-family: "Montserrat", "Arial Black", sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--cyan);
+}
+
+.schneider-logo {
+  height: 38px;
+  width: auto;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  color: #fff;
+  background: #000 url("/fiber-field.jpg") center bottom / cover no-repeat;
+  min-height: 680px;
+  aspect-ratio: 1024 / 682;
+  overflow: hidden;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  min-height: inherit;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 36px 48px;
+}
+
+.hero-logos {
+  width: min(1180px, 100%);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.hero .svel-mark {
+  width: 52px;
+  height: 52px;
+}
+
+.hero .svel-word {
+  font-size: clamp(26px, 2.6vw, 36px);
+}
+
+.schneider-logo-light {
+  height: clamp(34px, 4.2vw, 52px);
+  margin-top: 6px;
+}
+
+.hero-title {
+  margin: clamp(28px, 4.2vw, 52px) 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: "Montserrat", "Arial Black", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+}
+
+.title-innovation,
+.title-connect {
+  display: block;
+  font-size: clamp(48px, 6.4vw, 86px);
+}
+
+.title-innovation {
+  color: #fff;
+}
+
+.title-connect {
+  color: var(--green);
+  margin-top: 6px;
+}
+
+.title-year {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: #fff;
+}
+
+.year-line {
+  width: clamp(48px, 7vw, 108px);
+  height: 3px;
+  border-radius: 2px;
+  background: var(--green);
+}
+
+.event-info {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 0;
+  margin: clamp(26px, 3.4vw, 40px) 0 0;
+  padding: 0;
+  width: min(980px, 100%);
+}
+
+.event-info li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px;
+  font-size: clamp(16px, 1.7vw, 22px);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+
+.event-info svg {
+  width: 28px;
+  height: 28px;
+  color: var(--green);
+  flex: none;
+}
+
+.event-divider {
+  width: 1px;
+  height: 28px;
+  padding: 0 !important;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.contact-card {
+  margin-top: clamp(26px, 3.6vw, 42px);
+  min-width: min(280px, 100%);
+  padding: 14px 36px 16px;
+  text-align: center;
+  border: 2px solid var(--green);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.55);
+  box-shadow: 0 0 18px rgba(1, 209, 87, 0.28);
+}
+
+.contact-card p {
+  margin: 0;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.contact-name {
+  color: var(--green) !important;
+  font-family: "Montserrat", "Source Sans 3", sans-serif;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  margin-bottom: 4px !important;
+}
+
+.page-main {
+  background: #fff;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 72px;
+  padding: 72px 0 88px;
+  align-items: start;
+}
+
+.event-description {
+  color: #3a3a3a;
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 540px;
+}
+
+.event-description p {
+  margin: 0 0 18px;
+}
+
+.details-heading {
+  margin-top: 8px !important;
+  margin-bottom: 10px !important;
+  font-weight: 700;
+  color: #222;
+}
+
+.details-list {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+}
+
+.details-list li {
+  margin: 0 0 6px;
+}
+
+.contact-email a {
+  color: #128a32;
+  font-weight: 600;
+  text-underline-offset: 2px;
+}
+
+.contact-email a:hover {
+  color: #0c6b26;
+}
+
+.register-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 26px;
+}
+
+.register-head h2 {
+  margin: 0;
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: -0.02em;
+}
+
+.register-arrow {
+  width: 68px;
+  height: 50px;
+  color: var(--se-green);
+  flex: none;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.form-field input,
+.form-field select,
+.phone-control {
+  width: 100%;
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: #fff;
+  color: #222;
+  font-size: 16px;
+}
+
+.form-field input,
+.form-field select {
+  padding: 0 12px;
+}
+
+.form-field input::placeholder {
+  color: #9b9b9b;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.dial-code select:focus {
+  outline: 2px solid var(--se-green);
+  outline-offset: 1px;
+  border-color: var(--se-green);
+}
+
+.form-field select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #666 50%),
+    linear-gradient(135deg, #666 50%, transparent 50%);
+  background-position: calc(100% - 18px) 20px, calc(100% - 12px) 20px;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 32px;
+}
+
+.has-error input,
+.has-error select,
+.has-error .phone-control {
+  border-color: var(--error);
+}
+
+.field-error {
+  margin: 6px 0 0;
+  color: var(--error);
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.phone-control {
+  display: flex;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+}
+
+.phone-control input {
+  border: 0;
+  width: auto;
+  height: 100%;
+  min-width: 0;
+  border-radius: 0;
+  flex: 1;
+}
+
+.phone-control input:focus {
+  outline-offset: -2px;
+}
+
+.dial-code {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 !important;
+  padding: 0 8px 0 10px;
+  border-right: 1px solid var(--line);
+  background: #fafafa;
+  flex: none;
+}
+
+.dial-code select {
+  width: 108px;
+  max-width: 108px;
+  height: 100%;
+  border: 0;
+  background-color: transparent;
+  padding: 0 18px 0 0;
+  font-weight: 600;
+  color: #333;
+  background-position: calc(100% - 2px) calc(50% - 2px), calc(100% + 4px) calc(50% - 2px);
+}
+
+.india-flag {
+  width: 22px;
+  height: 16px;
+  flex: none;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.submit-btn {
+  margin-top: 6px;
+  height: 48px;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  background: var(--se-green);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: var(--se-green-hover);
+}
+
+.submit-btn:active {
+  background: var(--se-green-active);
+}
+
+.submit-btn:focus-visible,
+.contact-email a:focus-visible {
+  outline: 3px solid #0e3b18;
+  outline-offset: 2px;
+}
+
+.success {
+  border: 1px solid #b7ebc4;
+  background: #f3fbf5;
+  border-radius: 4px;
+  padding: 22px 20px 20px;
+}
+
+.success h3 {
+  margin: 0 0 8px;
+  color: #146b2e;
+  font-size: 22px;
+}
+
+.success p {
+  margin: 0 0 18px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.registration {
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 40px 0 56px;
+  }
+
+  .event-description {
+    max-width: none;
+  }
+
+  .hero {
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+
+  .hero-inner {
+    padding: 22px 18px 36px;
+  }
+
+  .event-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .event-info li {
+    padding: 0;
+  }
+
+  .event-divider {
+    display: none;
+  }
+
+  .header-inner,
+  .content {
+    width: min(1120px, calc(100% - 32px));
+  }
+}
+
+@media (max-width: 520px) {
+  .site-header {
+    height: 64px;
+  }
+
+  .svel-mark,
+  .hero .svel-mark {
+    width: 34px;
+    height: 34px;
+  }
+
+  .svel-word,
+  .hero .svel-word {
+    font-size: 20px;
+  }
+
+  .schneider-logo,
+  .schneider-logo-light {
+    height: 26px;
+  }
+
+  .title-innovation,
+  .title-connect {
+    font-size: 40px;
+  }
+
+  .contact-card {
+    padding: 12px 18px 14px;
+    width: min(300px, 100%);
+  }
+
+  .register-head h2 {
+    font-size: 26px;
+  }
+
+  .dial-code select {
+    max-width: 92px;
+  }
+}
