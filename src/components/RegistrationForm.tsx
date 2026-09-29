@@ -165,7 +165,7 @@ export function RegistrationForm() {
 
       {submitted ? (
         <div className="success" role="status">
-          <h3>Registration received</h3>
+          <h3>Submitted</h3>
           <p>Thank you. Your registration for Innovation Connect 2026 has been sent.</p>
           <button
             type="button"
