@@ -239,7 +239,8 @@ select {
   font-family: "Montserrat", "Source Sans 3", sans-serif;
   font-size: 18px !important;
   font-weight: 700 !important;
-  margin-bottom: 4px !important;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px !important;
 }
 
 .page-main {
