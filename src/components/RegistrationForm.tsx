@@ -126,7 +126,7 @@ export function RegistrationForm() {
       const message = error instanceof Error ? error.message : "";
       if (message.toLowerCase().includes("activation")) {
         setSendError(
-          "Registration email is not active yet. Open svelservices@gmail.com, click the Activate Form link, then submit again.",
+          "Open the newest email in svelservices@gmail.com and click Activate Form. The older activation link is no longer valid.",
         );
       } else {
         setSendError("Your registration could not be sent. Please try again.");
