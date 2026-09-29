@@ -4,7 +4,7 @@ export function Header() {
       <div className="header-inner">
         <img
           className="schneider-logo"
-          src="/schneider-green.png"
+          src={`${import.meta.env.BASE_URL}schneider-green.png`}
           alt="Schneider Electric"
         />
       </div>

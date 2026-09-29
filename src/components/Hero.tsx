@@ -10,7 +10,7 @@ export function Hero() {
           <SvelLogo />
           <img
             className="schneider-logo schneider-logo-light"
-            src="/schneider-white.png"
+            src={`${import.meta.env.BASE_URL}schneider-white.png`}
             alt="Schneider Electric"
           />
         </div>

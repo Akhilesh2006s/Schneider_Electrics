@@ -92,7 +92,7 @@ select {
   position: relative;
   isolation: isolate;
   color: #fff;
-  background: #000 url("/fiber-field.jpg") center bottom / cover no-repeat;
+  background: #000 var(--fiber-image) center bottom / cover no-repeat;
   min-height: 680px;
   aspect-ratio: 1024 / 682;
   overflow: hidden;
