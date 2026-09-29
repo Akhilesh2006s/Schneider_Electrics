@@ -60,41 +60,33 @@ function describedBy(id: string, error?: string) {
   return error ? `${id}-error` : undefined;
 }
 
-async function sendRegistration(values: FormValues) {
-  const response = await fetch(`https://formsubmit.co/ajax/${registrationInbox}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      _subject: `Innovation Connect 2026 registration — ${values.firstName.trim()} ${values.lastName.trim()}`,
-      _template: "table",
-      _captcha: "false",
-      _replyto: values.email.trim(),
-      "First Name": values.firstName.trim(),
-      "Last Name": values.lastName.trim(),
-      "Company Name": values.company.trim(),
-      Phone: `${values.countryCode} ${values.phone.trim()}`,
-      Email: values.email.trim(),
-      Location: values.location,
-      "Job Title": values.jobTitle.trim(),
-    }),
-  });
-
-  const payload = (await response.json().catch(() => null)) as { success?: string | boolean; message?: string } | null;
-  const accepted = response.ok && (payload?.success === true || payload?.success === "true");
-  if (!accepted) {
-    throw new Error(payload?.message || "The registration could not be sent.");
-  }
+function gmailComposeUrl(values: FormValues) {
+  const subject = `Innovation Connect 2026 registration — ${values.firstName.trim()} ${values.lastName.trim()}`;
+  const body = [
+    "Innovation Connect 2026 registration",
+    "",
+    `First Name: ${values.firstName.trim()}`,
+    `Last Name: ${values.lastName.trim()}`,
+    `Company Name: ${values.company.trim()}`,
+    `Phone: ${values.countryCode} ${values.phone.trim()}`,
+    `Email: ${values.email.trim()}`,
+    `Location: ${values.location}`,
+    `Job Title: ${values.jobTitle.trim()}`,
+  ].join("\n");
+  const url = new URL("https://mail.google.com/mail/");
+  url.searchParams.set("view", "cm");
+  url.searchParams.set("fs", "1");
+  url.searchParams.set("to", registrationInbox);
+  url.searchParams.set("su", subject);
+  url.searchParams.set("body", body);
+  return url.toString();
 }
 
 export function RegistrationForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [sendError, setSendError] = useState("");
+  const [gmailUrl, setGmailUrl] = useState("");
 
   function update<K extends keyof FormValues>(key: K, value: FormValues[K]) {
     setValues((current) => ({ ...current, [key]: value }));
@@ -106,11 +98,10 @@ export function RegistrationForm() {
     });
   }
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const nextErrors = validate(values);
     setErrors(nextErrors);
-    setSendError("");
     if (Object.keys(nextErrors).length > 0) {
       const firstInvalid = Object.keys(nextErrors)[0];
       const field = document.getElementById(firstInvalid === "countryCode" ? "phone" : firstInvalid);
@@ -118,22 +109,10 @@ export function RegistrationForm() {
       return;
     }
 
-    setSending(true);
-    try {
-      await sendRegistration(values);
-      setSubmitted(true);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "";
-      if (message.toLowerCase().includes("activation")) {
-        setSendError(
-          "Open the newest email in svelservices@gmail.com and click Activate Form. The older activation link is no longer valid.",
-        );
-      } else {
-        setSendError("Your registration could not be sent. Please try again.");
-      }
-    } finally {
-      setSending(false);
-    }
+    const url = gmailComposeUrl(values);
+    setGmailUrl(url);
+    window.open(url, "_blank", "noopener,noreferrer");
+    setSubmitted(true);
   }
 
   return (
@@ -168,8 +147,14 @@ export function RegistrationForm() {
 
       {submitted ? (
         <div className="success" role="status">
-          <h3>Registration received</h3>
-          <p>Thank you. Your registration for Innovation Connect 2026 has been received.</p>
+          <h3>Registration ready to send</h3>
+          <p>
+            Your details are filled in an email to svelservices@gmail.com. Press Send in that Gmail window so the
+            organizer receives it.
+          </p>
+          <a className="submit-btn" href={gmailUrl} target="_blank" rel="noopener noreferrer">
+            Open the email
+          </a>
           <button
             type="button"
             className="submit-btn secondary"
@@ -177,7 +162,7 @@ export function RegistrationForm() {
               setSubmitted(false);
               setValues(initialValues);
               setErrors({});
-              setSendError("");
+              setGmailUrl("");
             }}
           >
             Register another attendee
@@ -304,14 +289,8 @@ export function RegistrationForm() {
             />
           </FormField>
 
-          {sendError ? (
-            <p className="form-alert" role="alert">
-              {sendError}
-            </p>
-          ) : null}
-
-          <button type="submit" className="submit-btn" disabled={sending}>
-            {sending ? "Sending..." : "Submit"}
+          <button type="submit" className="submit-btn">
+            Submit
           </button>
         </form>
       )}

@@ -423,6 +423,9 @@ select {
 }
 
 .submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 6px;
   height: 48px;
   width: 100%;
@@ -433,7 +436,15 @@ select {
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.01em;
+  text-decoration: none;
   cursor: pointer;
+}
+
+.submit-btn.secondary {
+  margin-top: 10px;
+  background: #fff;
+  color: #146b2e;
+  border: 1px solid #b7ebc4;
 }
 
 .submit-btn:hover {
@@ -447,18 +458,6 @@ select {
 .submit-btn:focus-visible {
   outline: 3px solid #0e3b18;
   outline-offset: 2px;
-}
-
-.submit-btn:disabled {
-  opacity: 0.7;
-  cursor: wait;
-}
-
-.form-alert {
-  margin: 0;
-  color: var(--error);
-  font-size: 14px;
-  line-height: 1.4;
 }
 
 .success {
