@@ -27,7 +27,7 @@ const initialValues: FormValues = {
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const registrationInbox = "kovid0258@gmail.com";
+const registrationInbox = "svelservices@gmail.com";
 
 function IndiaFlag() {
   return (
@@ -124,7 +124,7 @@ export function RegistrationForm() {
     } catch (error) {
       const message = error instanceof Error ? error.message : "";
       if (message.toLowerCase().includes("activation")) {
-        setSendError("Open the newest email in kovid0258@gmail.com and click Activate Form, then submit again.");
+        setSendError("Open the newest email in svelservices@gmail.com and click Activate Form, then submit again.");
       } else {
         setSendError("Your registration could not be sent. Please try again.");
       }
