@@ -61,186 +61,19 @@ select {
   gap: 16px;
 }
 
-.svel-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--cyan);
-}
-
-.svel-mark {
-  width: 42px;
-  height: 42px;
-  flex: none;
-}
-
-.svel-word {
-  font-family: "Montserrat", "Arial Black", sans-serif;
-  font-weight: 800;
-  font-size: 28px;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  color: var(--cyan);
-}
-
 .schneider-logo {
   height: 38px;
   width: auto;
 }
 
 .hero {
-  position: relative;
-  isolation: isolate;
-  color: #fff;
-  background: #000 var(--fiber-image) center bottom / cover no-repeat;
-  min-height: 680px;
-  aspect-ratio: 1024 / 682;
-  overflow: hidden;
+  background: #000;
+  line-height: 0;
 }
 
-.hero-inner {
-  position: relative;
-  z-index: 1;
-  min-height: inherit;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 28px 36px 48px;
-}
-
-.hero-logos {
-  width: min(1180px, 100%);
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.hero .svel-mark {
-  width: 52px;
-  height: 52px;
-}
-
-.hero .svel-word {
-  font-size: clamp(26px, 2.6vw, 36px);
-}
-
-.schneider-logo-light {
-  height: clamp(34px, 4.2vw, 52px);
-  margin-top: 6px;
-}
-
-.hero-title {
-  margin: clamp(28px, 4.2vw, 52px) 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  font-family: "Montserrat", "Arial Black", sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 0.92;
-}
-
-.title-innovation,
-.title-connect {
-  display: block;
-  font-size: clamp(48px, 6.4vw, 86px);
-}
-
-.title-innovation {
-  color: #fff;
-}
-
-.title-connect {
-  color: var(--green);
-  margin-top: 6px;
-}
-
-.title-year {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 14px;
-  font-size: clamp(26px, 3vw, 40px);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  color: #fff;
-}
-
-.year-line {
-  width: clamp(48px, 7vw, 108px);
-  height: 3px;
-  border-radius: 2px;
-  background: var(--green);
-}
-
-.event-info {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px 0;
-  margin: clamp(26px, 3.4vw, 40px) 0 0;
-  padding: 0;
-  width: min(980px, 100%);
-}
-
-.event-info li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 18px;
-  font-size: clamp(16px, 1.7vw, 22px);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: #fff;
-}
-
-.event-info svg {
-  width: 28px;
-  height: 28px;
-  color: var(--green);
-  flex: none;
-}
-
-.event-divider {
-  width: 1px;
-  height: 28px;
-  padding: 0 !important;
-  background: rgba(255, 255, 255, 0.85);
-}
-
-.contact-card {
-  margin-top: clamp(26px, 3.6vw, 42px);
-  min-width: min(280px, 100%);
-  padding: 14px 36px 16px;
-  text-align: center;
-  border: 2px solid var(--green);
-  border-radius: 16px;
-  background: rgba(0, 0, 0, 0.55);
-  box-shadow: 0 0 18px rgba(1, 209, 87, 0.28);
-}
-
-.contact-card p {
-  margin: 0;
-  color: #fff;
-  font-size: 15px;
-  line-height: 1.45;
-  font-weight: 500;
-}
-
-.contact-name {
-  color: var(--green) !important;
-  font-family: "Montserrat", "Source Sans 3", sans-serif;
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.04em;
-  margin-bottom: 6px !important;
+.hero-banner {
+  width: 100%;
+  height: auto;
 }
 
 .page-main {
@@ -507,29 +340,6 @@ select {
     max-width: none;
   }
 
-  .hero {
-    aspect-ratio: auto;
-    min-height: 0;
-  }
-
-  .hero-inner {
-    padding: 22px 18px 36px;
-  }
-
-  .event-info {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .event-info li {
-    padding: 0;
-  }
-
-  .event-divider {
-    display: none;
-  }
-
   .header-inner,
   .content {
     width: min(1120px, calc(100% - 32px));
@@ -541,30 +351,8 @@ select {
     height: 64px;
   }
 
-  .svel-mark,
-  .hero .svel-mark {
-    width: 34px;
-    height: 34px;
-  }
-
-  .svel-word,
-  .hero .svel-word {
-    font-size: 20px;
-  }
-
-  .schneider-logo,
-  .schneider-logo-light {
+  .schneider-logo {
     height: 26px;
-  }
-
-  .title-innovation,
-  .title-connect {
-    font-size: 40px;
-  }
-
-  .contact-card {
-    padding: 12px 18px 14px;
-    width: min(300px, 100%);
   }
 
   .register-head h2 {
