@@ -61,6 +61,39 @@ function describedBy(id: string, error?: string) {
 }
 
 async function sendRegistration(values: FormValues) {
+  const payload = {
+    _subject: `Innovation Connect 2026 registration — ${values.firstName.trim()} ${values.lastName.trim()}`,
+    _replyto: values.email.trim(),
+    Name: `${values.firstName.trim()} ${values.lastName.trim()}`,
+    Company: values.company.trim(),
+    Location: values.location,
+    Phone: `${values.countryCode} ${values.phone.trim()}`,
+    Email: values.email.trim(),
+    "Job Title": values.jobTitle.trim(),
+  };
+
+  // Primary: ShipMyForm
+  try {
+    const res = await fetch(`https://shipmyform.com/to/${registrationInbox}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; message?: string } | null;
+      if (data?.ok === true) {
+        return;
+      }
+    }
+  } catch (err) {
+    console.warn("ShipMyForm failed, attempting fallback:", err);
+  }
+
+  // Fallback: FormSubmit
   const response = await fetch(`https://formsubmit.co/ajax/${registrationInbox}`, {
     method: "POST",
     headers: {
@@ -68,23 +101,16 @@ async function sendRegistration(values: FormValues) {
       Accept: "application/json",
     },
     body: JSON.stringify({
-      _subject: `Innovation Connect 2026 registration — ${values.firstName.trim()} ${values.lastName.trim()}`,
+      ...payload,
       _template: "table",
       _captcha: "false",
-      _replyto: values.email.trim(),
-      Name: `${values.firstName.trim()} ${values.lastName.trim()}`,
-      Company: values.company.trim(),
-      Location: values.location,
-      Phone: `${values.countryCode} ${values.phone.trim()}`,
-      Email: values.email.trim(),
-      "Job Title": values.jobTitle.trim(),
     }),
   });
 
-  const payload = (await response.json().catch(() => null)) as { success?: string | boolean; message?: string } | null;
-  const accepted = response.ok && (payload?.success === true || payload?.success === "true");
+  const formSubmitPayload = (await response.json().catch(() => null)) as { success?: string | boolean; message?: string } | null;
+  const accepted = response.ok && (formSubmitPayload?.success === true || formSubmitPayload?.success === "true");
   if (!accepted) {
-    throw new Error(payload?.message || "The registration could not be sent.");
+    throw new Error(formSubmitPayload?.message || "The registration could not be sent.");
   }
 }
 
@@ -124,9 +150,9 @@ export function RegistrationForm() {
     } catch (error) {
       const message = error instanceof Error ? error.message : "";
       if (message.toLowerCase().includes("activation")) {
-        setSendError("Open the newest email in svelservices@gmail.com and click Activate Form, then submit again.");
+        setSendError("Please open the activation email sent to svelservices@gmail.com and confirm the form, then submit again.");
       } else {
-        setSendError("Your registration could not be sent. Please try again.");
+        setSendError("Your registration could not be sent automatically. Please try again or send directly using the button below.");
       }
     } finally {
       setSending(false);
@@ -302,9 +328,19 @@ export function RegistrationForm() {
           </FormField>
 
           {sendError ? (
-            <p className="form-alert" role="alert">
-              {sendError}
-            </p>
+            <div className="form-alert-container" role="alert">
+              <p className="form-alert">{sendError}</p>
+              <a
+                className="form-mail-fallback"
+                href={`mailto:${registrationInbox}?subject=${encodeURIComponent(
+                  `Innovation Connect 2026 registration — ${values.firstName.trim()} ${values.lastName.trim()}`.trim()
+                )}&body=${encodeURIComponent(
+                  `Innovation Connect 2026 registration\n\nName: ${values.firstName.trim()} ${values.lastName.trim()}\nCompany: ${values.company.trim()}\nLocation: ${values.location}\nPhone: ${values.countryCode} ${values.phone.trim()}\nEmail: ${values.email.trim()}\nJob Title: ${values.jobTitle.trim()}`
+                )}`}
+              >
+                Send via Email app
+              </a>
+            </div>
           ) : null}
           <button type="submit" className="submit-btn" disabled={sending}>
             {sending ? "Sending..." : "Submit"}
